@@ -21,7 +21,7 @@ public class ListController {
     static HashMap<String, String> columnChoices = new HashMap<>();
     static HashMap<String, Object> tableChoices = new HashMap<>();
 
-    public ListController () {
+    public ListController() {
         columnChoices.put("all", "All");
         columnChoices.put("employer", "Employer");
         columnChoices.put("location", "Location");
@@ -46,18 +46,25 @@ public class ListController {
         return "list";
     }
 
-    @GetMapping(value = "jobs")
-    public String listJobsByColumnAndValue(Model model, @RequestParam String column, @RequestParam(required = false) String value) {
+    @GetMapping("/jobs")
+    public String listJobsByColumnAndValue(Model model,
+                                           @RequestParam(required = false) String column,
+                                           @RequestParam(required = false) String value) {
         ArrayList<Job> jobs;
-        if (column.equals("all")){
+
+        // Check if the column is null or empty for the "View All" scenario.
+        if (column == null || column.isEmpty()) {
+            // Retrieve all jobs when no column is specified.
             jobs = JobData.findAll();
             model.addAttribute("title", "All Jobs");
         } else {
+            // Retrieve jobs based on the provided column and value.
             jobs = JobData.findByColumnAndValue(column, value);
             model.addAttribute("title", "Jobs with " + columnChoices.get(column) + ": " + value);
         }
-        model.addAttribute("jobs", jobs);
 
+        // Add jobs to the model to be displayed in the view.
+        model.addAttribute("jobs", jobs);
         return "list-jobs";
     }
 }

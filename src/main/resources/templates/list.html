@@ -27,6 +27,10 @@
         <li th:each="item : ${category.value}">
           <a th:href="@{/list/jobs(column=${category.key},value=${item})}" th:text="${item}"></a>
         </li>
+        <!-- Add the View All link directly -->
+        <li>
+          <a th:href="@{/list/jobs}">View All</a>
+        </li>
       </ul>
     </td>
   </tr>

@@ -29,11 +29,11 @@
     </form>
 
     <hr/>
-
+</div>
     <!-- Loop over search results to display all job fields -->
-    <div>
+    //<div>
         <div th:if="${jobs != null} and ${jobs.size() > 0}">
-            <div th:each="job : ${jobs}" class="job-box">
+            <th:block th:each="job : ${jobs}" class="job-box">
                 <table class="job-listing">
                     <tr>
                         <th>ID</th>
@@ -62,6 +62,9 @@
                 </table>
 
 
-            </div>
+            </th:block>
+        </div>
+    </div>
+
 </body>
 </html>

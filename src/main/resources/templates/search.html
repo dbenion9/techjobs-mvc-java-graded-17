@@ -32,7 +32,7 @@
 
     <!-- Loop over search results to display all job fields -->
     <div>
-        <div th:if="${jobs.size() > 0}">
+        <div th:if="${jobs != null} and ${jobs.size() > 0}">
             <div th:each="job : ${jobs}" class="job-box">
                 <table class="job-listing">
                     <tr>

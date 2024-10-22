@@ -41,6 +41,10 @@ public class SearchController {
             jobs = JobData.findByColumnAndValue(searchType, searchTerm);
         }
 
+        // Print out the size of the jobs list
+        //System.out.println("Jobs found: " + jobs.size());
+
+
         // Add the jobs and column choices to the model to be displayed in the view
         model.addAttribute("jobs", jobs);
         model.addAttribute("columns", ListController.columnChoices);

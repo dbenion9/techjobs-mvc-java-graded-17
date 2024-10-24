@@ -1,38 +1,49 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments :: head"></head>
+<head th:replace="~{fragments :: head}"></head>
 <body>
-<div th:replace="fragments :: page-header"></div>
+<div th:replace="~{fragments :: page-header}"></div>
 <div class="container body-content">
+
+  <!-- Display the page title -->
   <h1 th:text="${title}">All Jobs</h1>
-  <div th:each="job : ${jobs}" class="job-box">
-    <table class="job-listing">
-      <tr>
-        <th>ID</th>
-        <td th:text="${job.id}"></td>
-      </tr>
-      <tr>
-        <th>Name</th>
-        <td th:text="${job.name}"></td>
-      </tr>
-      <tr>
-        <th>Employer</th>
-        <td th:text="${job.employer}"></td>
-      </tr>
-      <tr>
-        <th>Location</th>
-        <td th:text="${job.location}"></td>
-      </tr>
-      <tr>
-        <th>Position Type</th>
-        <td th:text="${job.positionType}"></td>
-      </tr>
-      <tr>
-        <th>Skill</th>
-        <td th:text="${job.coreCompetency}"></td>
-      </tr>
-    </table>
+
+  <!-- Check if there are any jobs to display -->
+  <div th:if="${jobs != null} and ${jobs.size() > 0}">
+    <!-- Loop through each job and display its details in a table -->
+    <div th:each="job : ${jobs}" class="job-box">
+      <table class="job-listing">
+        <tr>
+          <th>ID</th>
+          <td th:text="${job.id}"></td>
+        </tr>
+        <tr>
+          <th>Name</th>
+          <td th:text="${job.name}"></td>
+        </tr>
+        <tr>
+          <th>Employer</th>
+          <td th:text="${job.employer}"></td>
+        </tr>
+        <tr>
+          <th>Location</th>
+          <td th:text="${job.location}"></td>
+        </tr>
+        <tr>
+          <th>Position Type</th>
+          <td th:text="${job.positionType}"></td>
+        </tr>
+        <tr>
+          <th>Skill</th>
+          <td th:text="${job.coreCompetency}"></td>
+        </tr>
+      </table>
+    </div>
   </div>
+
+  <!-- Display a message if no jobs were found -->
+  <p th:if="${jobs.size() == 0}">No jobs found.</p>
+
 </div>
 </body>
 </html>

@@ -28,12 +28,25 @@ public class SearchController {
     public String displaySearchResults(Model model, @RequestParam String searchType, @RequestParam String searchTerm) {
         List<Job> jobs;
 
+        // Map 'skill' to 'coreCompetency' to handle the test case
+        if (searchType.equals("skill")) {
+            searchType = "coreCompetency";
+        }
+
         if (searchTerm.toLowerCase().equals("all") || searchTerm.isEmpty()) {
             jobs = JobData.findAll();
         } else {
             jobs = JobData.findByColumnAndValue(searchType, searchTerm);
         }
 
+        // Retrieve human-readable label for searchType from columnChoices
+        String searchTypeDisplay = ListController.columnChoices.get(searchType);
+
+        // Create the concatenated message: "Jobs with Skill: Ruby"
+        String resultMessage = "Jobs with " + searchTypeDisplay + ": " + searchTerm;
+
+        // Add the concatenated message to the model
+        model.addAttribute("resultMessage", resultMessage);
         model.addAttribute("jobs", jobs);
         model.addAttribute("columns", ListController.columnChoices);
         model.addAttribute("searchType", searchType);

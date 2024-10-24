@@ -11,13 +11,14 @@
         <h2>Search by:</h2>
 
         <p>
-                <span th:each="column : ${columns}">
-                    <input type="radio" name="searchType"
-                           th:id="${column.key}"
-                           th:value="${column.key}"
-                           th:checked="${column.key == 'all'}" />
-                    <label th:for="${column.key}" th:text="${column.value}"></label>
-                </span>
+            <!-- Loop over search columns from columnChoices -->
+            <span th:each="column : ${columns}">
+                <input type="radio" name="searchType"
+                       th:id="${column.key}"
+                       th:value="${column.key}"
+                       th:checked="${column.key == 'all'}" />
+                <label th:for="${column.key}" th:text="${column.value}"></label>
+            </span>
         </p>
 
         <p>
@@ -29,9 +30,11 @@
     </form>
 
     <hr/>
-</div>
-<!-- Loop over search results to display all job fields -->
-<div>
+
+    <!-- Display custom message after search -->
+    <h2 th:text="${resultMessage}"></h2>
+
+    <!-- Loop over search results to display all job fields -->
     <div th:if="${jobs != null} and ${jobs.size() > 0}">
         <th:block th:each="job : ${jobs}" class="job-box">
             <table class="job-listing">
@@ -62,6 +65,7 @@
             </table>
         </th:block>
     </div>
+
 </div>
 
 </body>

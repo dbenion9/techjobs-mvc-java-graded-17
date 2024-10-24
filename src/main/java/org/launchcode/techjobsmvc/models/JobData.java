@@ -48,6 +48,7 @@ public class JobData {
             String aValue = getFieldValue(job, column);
             if (aValue != null && aValue.toLowerCase().contains(value.toLowerCase())) {
                 jobs.add(job);
+                System.out.println("Job added: " + job.getName() + " - Core Competency: " + job.getCoreCompetency().getValue());
             }
         }
 
@@ -183,3 +184,4 @@ public class JobData {
         return allCoreCompetency;
     }
 }
+

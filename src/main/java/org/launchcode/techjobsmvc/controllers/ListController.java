@@ -32,7 +32,6 @@ public class ListController {
         tableChoices.put("location", JobData.getAllLocations());
         tableChoices.put("positionType", JobData.getAllPositionTypes());
         tableChoices.put("coreCompetency", JobData.getAllCoreCompetency());
-        //tableChoices.put("all", JobData.findAll()); // Add this line in your ListController
     }
 
     @GetMapping(value = "")
@@ -50,24 +49,29 @@ public class ListController {
     @GetMapping(value = "jobs")
     public String listJobsByColumnAndValue(Model model, @RequestParam String column, @RequestParam(required = false) String value) {
         ArrayList<Job> jobs;
-        if (column.equals("all")){
+
+        // Debugging Statement to indicate what column and value are being searched
+        System.out.println("Searching for jobs with " + column + " = " + value);
+
+        if (column.equals("all")) {
             jobs = JobData.findAll();
             model.addAttribute("title", "All Jobs");
         } else {
             jobs = JobData.findByColumnAndValue(column, value);
+
+            // Debugging: Print the number of jobs found
+            System.out.println("Number of jobs found: " + jobs.size());
+
+            // Debugging: Print each job's details (ID and Core Competency)
+            for (Job job : jobs) {
+                System.out.println("Job ID: " + job.getId() + ", Core Competency: " + job.getCoreCompetency());
+            }
+
             model.addAttribute("title", "Jobs with " + columnChoices.get(column) + ": " + value);
         }
+
         model.addAttribute("jobs", jobs);
 
         return "list-jobs";
     }
 }
-
-
-
-
-
-
-
-
-

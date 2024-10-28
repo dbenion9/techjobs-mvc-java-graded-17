@@ -34,7 +34,7 @@
     <!-- Display custom message after search -->
     <h2 th:text="${resultMessage}"></h2>
 
-    <!-- Loop over search results to display all job fields -->
+    <!-- Loop over search results to display all job  -->
     <div th:if="${jobs != null} and ${jobs.size() > 0}">
         <th:block th:each="job : ${jobs}" class="job-box">
             <table class="job-listing">

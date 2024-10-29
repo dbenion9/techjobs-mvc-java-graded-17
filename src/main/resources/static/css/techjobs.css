@@ -117,3 +117,12 @@ button[type="submit"] {
     color: black;
     border: 1px solid #ccc;
 }
+
+.category {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.view-all-link {
+    margin-top: 5px;
+}

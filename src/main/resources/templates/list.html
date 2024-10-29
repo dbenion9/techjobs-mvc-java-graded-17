@@ -8,29 +8,59 @@
 
 <div class="container body-content">
   <h1 th:text="${#strings.capitalizeWords(title)}"></h1>
-  <h2 class = "centered">View Jobs By Category</h2>
+  <h2 class="centered">View Jobs By Category</h2>
 </div>
 
 <table class="centeredTable">
   <tr>
-    <th:block th:each="column : ${columns}">
-      <th th:text = "${column.value}"></th>
-    </th:block>
+    <!-- Column headers: All, Position Type, Employer, Skill, Location -->
+    <th><a href="/list/jobs?column=all">All</a></th>
+    <th th:text="${columns['positionType']}">Position Type</th>
+    <th th:text="${columns['employer']}">Employer</th>
+    <th th:text="${columns['coreCompetency']}">Skill</th>
+    <th th:text="${columns['location']}">Location</th>
   </tr>
   <tr>
-    <!-- TODO #2: Complete the View Jobs By Category Table. -->
-
-    <td></td>
-    <td th:each="category : ${tableChoices}">
+    <!-- "View All Jobs" link only under the "All" column -->
+    <td>
       <ul>
-        <li th:each="item : ${category.value}">
-          <a th:href="@{/list/jobs(column=${category.key},value=${item})}" th:text="${item}"></a>
-        </li>
-        <!-- View All link -->
-        <li>
-          <a th:href="@{/list/jobs?column=all}">View All Jobs</a>
-        </li>
+        <li><a href="/list/jobs?column=all">View All Jobs</a></li>
+      </ul>
+    </td>
 
+    <!-- Position Type column links -->
+    <td>
+      <ul>
+        <li th:each="positionType : ${tableChoices['positionType']}">
+          <a th:href="@{/list/jobs(column='positionType', value=${positionType})}" th:text="${positionType}"></a>
+        </li>
+      </ul>
+    </td>
+
+    <!-- Employer column links -->
+    <td>
+      <ul>
+        <li th:each="employer : ${tableChoices['employer']}">
+          <a th:href="@{/list/jobs(column='employer', value=${employer})}" th:text="${employer}"></a>
+        </li>
+      </ul>
+    </td>
+
+    <!-- Skill column links -->
+    <td>
+      <ul>
+        <li th:each="skill : ${tableChoices['coreCompetency']}">
+          <a th:href="@{/list/jobs(column='coreCompetency', value=${skill})}" th:text="${skill}"></a>
+        </li>
+      </ul>
+    </td>
+
+    <!-- Location column links -->
+    <td>
+      <ul>
+        <li th:each="location : ${tableChoices['location']}">
+          <a th:href="@{/list/jobs(column='location', value=${location})}" th:text="${location}"></a>
+        </li>
       </ul>
     </td>
   </tr>
